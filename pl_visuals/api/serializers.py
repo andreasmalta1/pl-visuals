@@ -10,9 +10,13 @@ class ClubSerializer(serializers.ModelSerializer):
 
 
 class MatchSerializer(serializers.ModelSerializer):
+    clubs = serializers.SlugRelatedField(
+        many=True, read_only=True, slug_field="club_name"
+    )
+
     class Meta:
         model = Match
-        fields = ["club_id", "season", "num_matches"]
+        fields = ["clubs", "season", "num_matches"]
 
 
 class LeagueDataSerializer(serializers.ModelSerializer):
