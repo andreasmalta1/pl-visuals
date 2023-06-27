@@ -12,6 +12,4 @@
 # Maybe player database (figure how this will work)
 # Players info to create player charts (like on bot)
 
-# See how to incorporate num matches into data - preferably one csv
-
-club name club id season season matches
+# Show club name in matches field
