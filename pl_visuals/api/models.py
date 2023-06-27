@@ -1,6 +1,26 @@
 from django.db import models
 
 
+class Club(models.Model):
+    club_id = models.IntegerField(primary_key=True)
+    club_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.club_name
+
+
+class Match(models.Model):
+    club_id = models.ForeignKey("Club", on_delete=models.CASCADE)
+    season = models.CharField(max_length=10)
+    num_matches = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.club_name} - {self.season}"
+
+    class Meta:
+        verbose_name_plural = "Matches"
+
+
 class PlayerLeagueData(models.Model):
     season = models.CharField(max_length=10)
     player_name = models.CharField(max_length=50)
@@ -8,8 +28,7 @@ class PlayerLeagueData(models.Model):
     position = models.CharField(max_length=10)
     age = models.CharField(max_length=10)
     league = models.CharField(max_length=50)
-    club = models.CharField(max_length=50)
-    club_id = models.IntegerField()
+    club_id = models.ForeignKey("Club", on_delete=models.CASCADE)
 
     matches_played = models.IntegerField()
     starts = models.IntegerField()

@@ -1,6 +1,18 @@
 from rest_framework import serializers
 
-from .models import PlayerLeagueData, PlayerCompetitionData
+from .models import Club, Match, PlayerLeagueData, PlayerCompetitionData
+
+
+class ClubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Club
+        fields = ["club_id", "club_name"]
+
+
+class MatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Match
+        fields = ["club_id", "season", "num_matches"]
 
 
 class LeagueDataSerializer(serializers.ModelSerializer):
@@ -13,7 +25,6 @@ class LeagueDataSerializer(serializers.ModelSerializer):
             "position",
             "age",
             "league",
-            "club",
             "club_id",
             "matches_played",
             "starts",
@@ -43,7 +54,6 @@ class CompetitionDataSerializer(serializers.ModelSerializer):
             "position",
             "age",
             "league",
-            "club",
             "club_id",
             "matches_played",
             "starts",
