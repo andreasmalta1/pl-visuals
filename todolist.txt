@@ -5,11 +5,9 @@
 # Move minutes model to api models or create main app
 # Can I make the API avaialable via a key -> user registers, key generated, sent via email, authentication of key in headers.
 
-# Club model - club name -> club code
 # League model - > league name - > short_code -> id
-# Link
 
 # Maybe player database (figure how this will work)
 # Players info to create player charts (like on bot)
 
-# Show club name in matches field
+1. Generate first minutes view
