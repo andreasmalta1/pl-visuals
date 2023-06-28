@@ -10,7 +10,7 @@ class Club(models.Model):
 
 
 class Match(models.Model):
-    club_id = models.ForeignKey("Club", on_delete=models.CASCADE)
+    club = models.ForeignKey("Club", on_delete=models.CASCADE)
     season = models.CharField(max_length=10)
     num_matches = models.IntegerField()
 
@@ -28,7 +28,7 @@ class PlayerLeagueData(models.Model):
     position = models.CharField(max_length=10)
     age = models.CharField(max_length=10)
     league = models.CharField(max_length=50)
-    club_id = models.ForeignKey("Club", on_delete=models.CASCADE)
+    club = models.ForeignKey("Club", on_delete=models.CASCADE)
 
     matches_played = models.IntegerField()
     starts = models.IntegerField()
@@ -62,8 +62,7 @@ class PlayerCompetitionData(models.Model):
     position = models.CharField(max_length=10)
     age = models.CharField(max_length=10)
     league = models.CharField(max_length=50)
-    club = models.CharField(max_length=50)
-    club_id = models.IntegerField()
+    club = models.ForeignKey("Club", on_delete=models.CASCADE)
 
     matches_played = models.IntegerField()
     starts = models.IntegerField()

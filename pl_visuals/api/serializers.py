@@ -9,27 +9,34 @@ class ClubSerializer(serializers.ModelSerializer):
         fields = ["club_id", "club_name"]
 
 
+class ClubPublicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Club
+        fields = ["club_name"]
+
+
 class MatchSerializer(serializers.ModelSerializer):
-    clubs = serializers.SlugRelatedField(
-        many=True, read_only=True, slug_field="club_name"
-    )
+    club_info = ClubPublicSerializer(source="club", read_only=True)
 
     class Meta:
         model = Match
-        fields = ["clubs", "season", "num_matches"]
+        fields = ["club", "club_info", "season", "num_matches"]
 
 
 class LeagueDataSerializer(serializers.ModelSerializer):
+    club_info = ClubPublicSerializer(source="club", read_only=True)
+
     class Meta:
         model = PlayerLeagueData
         fields = [
+            "club",
+            "club_info",
             "season",
             "player_name",
             "nation",
             "position",
             "age",
             "league",
-            "club_id",
             "matches_played",
             "starts",
             "minutes",
@@ -49,16 +56,19 @@ class LeagueDataSerializer(serializers.ModelSerializer):
 
 
 class CompetitionDataSerializer(serializers.ModelSerializer):
+    club_info = ClubPublicSerializer(source="club", read_only=True)
+
     class Meta:
         model = PlayerCompetitionData
         fields = [
+            "club",
+            "club_info",
             "season",
             "player_name",
             "nation",
             "position",
             "age",
             "league",
-            "club_id",
             "matches_played",
             "starts",
             "minutes",
