@@ -4,7 +4,6 @@ from PIL import Image
 
 
 def get_minutes(df):
-    print(df)
     df["90s"] = df.apply(lambda row: np.around(np.divide(row.minutes, 90), 1), axis=1)
     df = df[
         [
@@ -30,7 +29,7 @@ def get_minutes(df):
 
 def annotate_axis(ax):
     ax.annotate(
-        "Stats from fbref.com",
+        "Data from fbref.com",
         (0, 0),
         (0, -20),
         fontsize=8,
@@ -39,7 +38,7 @@ def annotate_axis(ax):
         va="top",
     )
     ax.annotate(
-        "Data Viz by @andreascalleja",
+        "Viz by @andreascalleja",
         (0, 0),
         (0, -30),
         fontsize=8,
