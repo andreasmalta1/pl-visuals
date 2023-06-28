@@ -3,7 +3,7 @@ import csv
 
 endpoint = "http://localhost:8000/api/competition/"
 
-with open("csv_data/comps_info.csv", "r") as file:
+with open("csv_data/comps_info.csv", "r", encoding="UTF-8") as file:
     csvreader = csv.reader(file)
     next(csvreader, None)
     data = {}
@@ -14,8 +14,7 @@ with open("csv_data/comps_info.csv", "r") as file:
         data["nation"] = row[2]
         data["age"] = row[4]
         data["league"] = row[38]
-        data["club"] = row[36]
-        data["club_id"] = int(row[37])
+        data["club"] = int(row[37])
         data["matches_played"] = int(row[5])
         data["starts"] = int(row[6])
         data["minutes"] = int(row[7])
@@ -33,4 +32,3 @@ with open("csv_data/comps_info.csv", "r") as file:
         data["progressive_receives"] = int(row[23])
 
         get_response = requests.post(endpoint, json=data)
-        print(get_response.json())
