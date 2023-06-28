@@ -10,4 +10,4 @@
 # Maybe player database (figure how this will work)
 # Players info to create player charts (like on bot)
 
-1. Generate first minutes view
+2. Figure out page navigation
