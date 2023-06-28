@@ -10,4 +10,5 @@
 # Maybe player database (figure how this will work)
 # Players info to create player charts (like on bot)
 
-2. Figure out page navigation
+1. Figure out page navigation
+2. Add css
