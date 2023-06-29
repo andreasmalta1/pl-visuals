@@ -11,4 +11,3 @@
 # Players info to create player charts (like on bot)
 
 1. Figure out page navigation
-2. Add css https://www.w3schools.com/django/django_add_css_file.php
