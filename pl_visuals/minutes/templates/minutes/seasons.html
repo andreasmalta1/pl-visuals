@@ -9,9 +9,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>List of teams</h1>
     <div class="container">
-        <h1>hello</h1>
+        <h1>League</h1>
+        {% for season in league_seasons %}
+            <h5>{{ season }}</h5>
+            <!-- <a href="{% url 'team' team.club_id %}">{{ team }}</a> -->
+        {% endfor %}
+        <h1>All Comps</h1>
+        {% for season in competition_seasons %}
+            <h5>{{ season }}</h5>
+            <!-- <a href="{% url 'team' team.club_id %}">{{ team }}</a> -->
+        {% endfor %}
     </div>
     
 </body>

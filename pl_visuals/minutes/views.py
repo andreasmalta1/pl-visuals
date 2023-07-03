@@ -2,7 +2,7 @@ from django.shortcuts import render
 import pandas as pd
 
 
-from api.models import PlayerCompetitionData, Match, Club
+from api.models import Match, Club, PlayerLeagueData, PlayerCompetitionData
 from minutes.utils import get_minutes
 from minutes.plots import plt_minutes
 
@@ -15,9 +15,23 @@ def home(request):
 
 def teams(request, id):
     club = Club.objects.get(club_id=id)
-    # Now here I would need to get all seasons available and repeat
+    league_seasons = (
+        PlayerLeagueData.objects.filter(club=club)
+        .values_list("season", flat=True)
+        .distinct()
+    )
+    competition_seasons = (
+        PlayerCompetitionData.objects.filter(club=club)
+        .values_list("season", flat=True)
+        .distinct()
+    )
+
+    context = {
+        "league_seasons": league_seasons,
+        "competition_seasons": competition_seasons,
+    }
     # Can I use this  routing in pl table ?
-    return render(request, "minutes/seasons.html")
+    return render(request, "minutes/seasons.html", context)
 
 
 # minutes = pd.DataFrame(
