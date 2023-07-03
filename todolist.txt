@@ -11,3 +11,5 @@
 # Players info to create player charts (like on bot)
 
 1. Figure out page navigation
+    a. Get list of all teams
+    b. Get all seasons available for that team (split in 2, league and competiton)
