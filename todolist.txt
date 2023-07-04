@@ -10,6 +10,7 @@
 # Maybe player database (figure how this will work)
 # Players info to create player charts (like on bot)
 
-1. Figure out page navigation
-    a. Get list of all teams
-    b. Get all seasons available for that team (split in 2, league and competiton)
+# Add teams
+# Add seasonal data
+# Check what league and do it correspondingly
+# Add league in match models
