@@ -12,13 +12,11 @@
     <div class="container">
         <h1>League</h1>
         {% for season in league_seasons %}
-            <h5>{{ season }}</h5>
-            <!-- <a href="{% url 'team' team.club_id %}">{{ team }}</a> -->
+        <a href="{% url 'league_graph' club.club_id season %}">{{ club.club_name }} -> {{ season }}/{{ season|add:1 }}</a>
         {% endfor %}
-        <h1>All Comps</h1>
+        <h1>All comps</h1>
         {% for season in competition_seasons %}
-            <h5>{{ season }}</h5>
-            <!-- <a href="{% url 'team' team.club_id %}">{{ team }}</a> -->
+            <a href="{% url 'comp_graph' club.club_id season %}">{{ club.club_name }} -> {{ season }}/{{ season|add:1 }}</a>
         {% endfor %}
     </div>
     
