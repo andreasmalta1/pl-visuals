@@ -26,23 +26,50 @@ def teams(request, id):
         .distinct()
     )
 
+    league_season_list = [int(season[:4]) for season in league_seasons]
+    competitions_season_list = [int(season[:4]) for season in competition_seasons]
+
     context = {
-        "league_seasons": league_seasons,
-        "competition_seasons": competition_seasons,
+        "league_seasons": league_season_list,
+        "competition_seasons": competitions_season_list,
+        "club": club,
     }
-    # Can I use this  routing in pl table ?
     return render(request, "minutes/seasons.html", context)
 
 
-# minutes = pd.DataFrame(
-#     list(PlayerCompetitionData.objects.filter(club=10260).all().values())
-# )
+def league_graph(request, id, season):
+    club = Club.objects.get(club_id=id)
+    season = f"{season}/{season+1}"
+    minutes = pd.DataFrame(
+        list(PlayerLeagueData.objects.filter(club=club, season=season).all().values())
+    )
 
-# matches = Match.objects.filter(club=10260).first()
-# num_matches = matches.num_matches
+    matches = Match.objects.filter(club=club, season=season).first()
+    num_matches = matches.num_matches
 
-# df_comps = get_minutes(minutes)
+    df = get_minutes(minutes)
 
-# graph_path = plt_minutes(df_comps, "Manchester-United", num_matches, 10260, "comps")
+    graph = plt_minutes(df, club.club_name, num_matches, club.club_id, "lge")
 
-# return render(request, "minutes/index.html", {"data": graph_path})
+    return render(request, "minutes/graph.html", {"data": graph})
+
+
+def comp_graph(request, id, season):
+    club = Club.objects.get(club_id=id)
+    season = f"{season}/{season+1}"
+    minutes = pd.DataFrame(
+        list(
+            PlayerCompetitionData.objects.filter(club=club, season=season)
+            .all()
+            .values()
+        )
+    )
+
+    matches = Match.objects.filter(club=club, season=season).first()
+    num_matches = matches.num_matches
+
+    df = get_minutes(minutes)
+
+    graph = plt_minutes(df, club.club_name, num_matches, club.club_id, "comps")
+
+    return render(request, "minutes/graph.html", {"data": graph})
