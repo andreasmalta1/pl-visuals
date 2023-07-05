@@ -12,7 +12,8 @@ class Club(models.Model):
 class Match(models.Model):
     club = models.ForeignKey("Club", on_delete=models.CASCADE)
     season = models.CharField(max_length=10)
-    num_matches = models.IntegerField()
+    num_matches_league = models.IntegerField()
+    num_matches_comps = models.IntegerField()
 
     def __str__(self):
         return f"{self.club_name} - {self.season}"
@@ -37,16 +38,16 @@ class PlayerLeagueData(models.Model):
     assists = models.IntegerField()
     penalty_kicks = models.IntegerField()
     penalty_goals = models.IntegerField()
-    xg = models.FloatField()
-    non_penalty_xg = models.FloatField()
-    xa = models.FloatField()
+    xg = models.FloatField(null=True)
+    non_penalty_xg = models.FloatField(null=True)
+    xa = models.FloatField(null=True)
 
     yellow_cards = models.IntegerField()
     red_cards = models.IntegerField()
 
-    progressive_passes = models.IntegerField()
-    progressive_carries = models.IntegerField()
-    progressive_receives = models.IntegerField()
+    progressive_passes = models.IntegerField(null=True)
+    progressive_carries = models.IntegerField(null=True)
+    progressive_receives = models.IntegerField(null=True)
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -71,16 +72,16 @@ class PlayerCompetitionData(models.Model):
     assists = models.IntegerField()
     penalty_kicks = models.IntegerField()
     penalty_goals = models.IntegerField()
-    xg = models.FloatField()
-    non_penalty_xg = models.FloatField()
-    xa = models.FloatField()
+    xg = models.FloatField(null=True)
+    non_penalty_xg = models.FloatField(null=True)
+    xa = models.FloatField(null=True)
 
     yellow_cards = models.IntegerField()
     red_cards = models.IntegerField()
 
-    progressive_passes = models.IntegerField()
-    progressive_carries = models.IntegerField()
-    progressive_receives = models.IntegerField()
+    progressive_passes = models.IntegerField(null=True)
+    progressive_carries = models.IntegerField(null=True)
+    progressive_receives = models.IntegerField(null=True)
 
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

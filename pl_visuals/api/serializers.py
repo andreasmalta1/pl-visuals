@@ -20,7 +20,13 @@ class MatchSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Match
-        fields = ["club", "club_info", "season", "num_matches"]
+        fields = [
+            "club",
+            "club_info",
+            "season",
+            "num_matches_league",
+            "num_matches_comps",
+        ]
 
 
 class LeagueDataSerializer(serializers.ModelSerializer):
