@@ -45,7 +45,7 @@ def league_graph(request, id, season):
     )
 
     matches = Match.objects.filter(club=club, season=season).first()
-    num_matches = matches.num_matches
+    num_matches = matches.num_matches_league
 
     df = get_minutes(minutes)
 
@@ -66,7 +66,7 @@ def comp_graph(request, id, season):
     )
 
     matches = Match.objects.filter(club=club, season=season).first()
-    num_matches = matches.num_matches
+    num_matches = matches.num_matches_comps
 
     df = get_minutes(minutes)
 

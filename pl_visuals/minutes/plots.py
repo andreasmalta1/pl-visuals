@@ -13,8 +13,9 @@ from minutes.constants import LEAGUES
 
 def plt_minutes(df, team_name, num_games, team_id, comp):
     comp_description = "All Comps"
+    print(comp)
     if comp != "comps":
-        comp_description = LEAGUES.get(comp).get("lge_name")
+        comp_description = "Premier League"
 
     fig = plt.figure(figsize=(8, 10), dpi=300, facecolor="#EFE9E6")
     ax = plt.subplot()
