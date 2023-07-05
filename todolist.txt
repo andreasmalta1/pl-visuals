@@ -1,16 +1,9 @@
-# Scraper - Should this be timed ?? or manual ??
-# Models - how will the models be strcutured, in terms of teams, years + data
-# What addititional info can be added from my other repo
-# Add django rest framework for api, to post and update
-# Move minutes model to api models or create main app
-# Can I make the API avaialable via a key -> user registers, key generated, sent via email, authentication of key in headers.
+# Add seasonal data
+# Add league in match models
+# Paginate the minutes api
 
 # League model - > league name - > short_code -> id
+# Additional info to create player charts (like on bot)
+# Update data for the latest season
 
-# Maybe player database (figure how this will work)
-# Players info to create player charts (like on bot)
-
-# Add teams
-# Add seasonal data
-# Check what league and do it correspondingly
-# Add league in match models
+# Can I make the API avaialable via a key -> user registers, key generated, sent via email, authentication of key in headers.
