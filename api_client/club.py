@@ -1,9 +1,8 @@
 import requests
-import csv
+from teams import TEAMS
 
 endpoint = "http://localhost:8000/api/club/"
 
-data = {"club_name": "Manchester City", "club_id": 8465}
-
-get_response = requests.post(endpoint, json=data)
-print(get_response.json())
+for team in TEAMS:
+    data = {"club_name": team.replace("-", " "), "club_id": TEAMS[team]["fotmob_id"]}
+    get_response = requests.post(endpoint, json=data)

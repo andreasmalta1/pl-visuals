@@ -32,4 +32,4 @@ def get_teams_list():
     print(teams)
 
 
-get_teams_list()
+get_teams()

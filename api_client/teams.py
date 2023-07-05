@@ -1,5 +1,4 @@
 TEAMS = {
-    "AFC-Wimbledon": {"fbref_id": "8b9bf22a", "fotmob_id": 158319},
     "Arsenal": {"fbref_id": "18bb7c10", "fotmob_id": 9825},
     "Aston-Villa": {"fbref_id": "8602292d", "fotmob_id": 10252},
     "Barnsley": {"fbref_id": "293cb36b", "fotmob_id": 8283},
@@ -56,13 +55,10 @@ TEAMS = {
     "West-Bromwich-Albion": {"fbref_id": "60c6b05f", "fotmob_id": 8658},
     "West-Ham-United": {"fbref_id": "7c21e445", "fotmob_id": 8654},
     "Wigan-Athletic": {"fbref_id": "e59ddc76", "fotmob_id": 8528},
+    "Wimbledon": {"fbref_id": "3679c494", "fotmob_id": 158319},
     "Wolverhampton-Wanderers": {
         "fbref_id": "8cec06e1",
         "fotmob_id": 8602,
         "short_name": "Wolves",
     },
 }
-
-[
-    "Huddersfield",
-]

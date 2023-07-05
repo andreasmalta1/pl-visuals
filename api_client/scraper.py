@@ -26,18 +26,56 @@ def drop_rows(df, column, value):
 
 
 def get_teams_data():
-    for team_name in TEAMS:
-        print(team_name)
-        for season in reversed(range(1992, 2019)):
+    df_epl = pd.read_csv("csv_data/seasons/epl.csv")
+
+    for column in df_epl:
+        if "Unnamed" in column:
+            continue
+        df_epl[column] = df_epl[column].fillna(0)
+        season = column
+        teams = df_epl[column].values
+
+        for team in teams:
+            if not team:
+                continue
+
+            team_name = team.replace(" ", "-")
+
+            file_path_lge = f"csv_data/{team_name.lower()}/lge"
+            file_path_comps = f"csv_data/{team_name.lower()}/comps"
+
+            if not os.path.isdir(file_path_lge):
+                os.makedirs(file_path_lge)
+            if not os.path.isdir(file_path_comps):
+                os.makedirs(file_path_comps)
+
+            file_name_lge = os.path.join(file_path_lge, f"{season}.csv")
+            file_name_comps = os.path.join(file_path_comps, f"{season}.csv")
+            file_name_mth_lge = os.path.join(file_path_lge, f"{season}_matches.csv")
+            file_name_mth_comps = os.path.join(file_path_comps, f"{season}_matches.csv")
+
+            if (
+                os.path.exists(file_name_lge)
+                and os.path.exists(file_name_comps)
+                and os.path.exists(file_name_mth_lge)
+                and os.path.exists(file_name_mth_comps)
+            ):
+                continue
+
             time.sleep(60)
+
+            print(team_name)
+            print(season)
 
             fbref_id = TEAMS[team_name]["fbref_id"]
             fotmob_id = TEAMS[team_name]["fotmob_id"]
             if TEAMS[team_name].get("short_name"):
                 team_name = TEAMS[team_name].get("short_name")
 
-            url_lge = f"https://fbref.com/en/squads/{fbref_id}/{season}-{season+1}/{team_name}-Stats"
-            comps_lge = f"https://fbref.com/en/squads/{fbref_id}/{season}-{season+1}/all_comps/{team_name}-Stats-All-Competitions"
+            url_lge = (
+                f"https://fbref.com/en/squads/{fbref_id}/{season}/{team_name}-Stats"
+            )
+            comps_lge = f"https://fbref.com/en/squads/{fbref_id}/{season}/all_comps/{team_name}-Stats-All-Competitions"
 
             df_lge = get_info(url_lge)
             df_comps = get_info(comps_lge)
@@ -75,28 +113,24 @@ def get_teams_data():
             df_lge = df_lge.replace("gf GUF", "fr FRA")
             df_comps = df_comps.replace("gf GUF", "fr FRA")
 
-            url_lge_mth = f"https://fbref.com/en/squads/{fbref_id}/{season}-{season+1}/matchlogs/c9/misc/{team_name}-Match-Logs"
-            url_comps_mth = f"https://fbref.com/en/squads/{fbref_id}/{season}-{season+1}/matchlogs/all_comps/misc/{team_name}-Match-Logs-All-Competitions"
+            df_lge = df_lge.replace("xc CIS", "uk UKR")
+            df_comps = df_comps.replace("xc CIS", "uk UKR")
+
+            url_lge_mth = f"https://fbref.com/en/squads/{fbref_id}/{season}/matchlogs/c9/misc/{team_name}-Match-Logs"
+            url_comps_mth = f"https://fbref.com/en/squads/{fbref_id}/{season}/matchlogs/all_comps/misc/{team_name}-Match-Logs-All-Competitions"
 
             df_lge_mth = get_info(url_lge_mth)
             df_comps_mth = get_info(url_comps_mth)
 
-            file_path_lge = f"csv_data/{team_name.lower()}/lge"
-            file_path_comps = f"csv_data/{team_name.lower()}/comps"
+            file_name_lge = os.path.join(file_path_lge, f"{season}.csv")
+            file_name_comps = os.path.join(file_path_comps, f"{season}.csv")
+            file_name_mth_lge = os.path.join(file_path_lge, f"{season}_matches.csv")
+            file_name_mth_comps = os.path.join(file_path_comps, f"{season}_matches.csv")
 
-            if not os.path.isdir(file_path_lge):
-                os.makedirs(file_path_lge)
-            if not os.path.isdir(file_path_comps):
-                os.makedirs(file_path_comps)
-
-            df_lge.to_csv(os.path.join(file_path_lge, f"{season}-{season+1}.csv"))
-            df_comps.to_csv(os.path.join(file_path_comps, f"{season}-{season+1}.csv"))
-            df_lge_mth.to_csv(
-                os.path.join(file_path_lge, f"{season}-{season+1}_matches.csv")
-            )
-            df_comps_mth.to_csv(
-                os.path.join(file_path_comps, f"{season}-{season+1}_matches.csv")
-            )
+            df_lge.to_csv(file_name_lge)
+            df_comps.to_csv(file_name_comps)
+            df_lge_mth.to_csv(file_name_mth_lge)
+            df_comps_mth.to_csv(file_name_mth_comps)
 
 
 get_teams_data()
