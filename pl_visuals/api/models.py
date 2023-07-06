@@ -9,8 +9,15 @@ class Club(models.Model):
         return self.club_name
 
 
+class League(models.Model):
+    league_id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=30)
+    code = models.CharField(max_length=5)
+
+
 class Match(models.Model):
     club = models.ForeignKey("Club", on_delete=models.CASCADE)
+    league = models.ForeignKey("League", on_delete=models.SET_NULL, null=True)
     season = models.CharField(max_length=10)
     num_matches_league = models.IntegerField()
     num_matches_comps = models.IntegerField()
