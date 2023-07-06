@@ -16,7 +16,7 @@ class ClubDetailAPIView(generics.RetrieveAPIView):
 
 
 class ClubListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Club.objects.all()
+    queryset = Club.objects.all().order_by("club_id")
     serializer_class = ClubSerializer
 
 
@@ -26,7 +26,7 @@ class LeagueDetailAPIView(generics.RetrieveAPIView):
 
 
 class LeagueListCreateAPIView(generics.ListCreateAPIView):
-    queryset = League.objects.all()
+    queryset = League.objects.all().order_by("-league_id")
     serializer_class = LeagueSerializer
 
 
@@ -36,7 +36,7 @@ class MatchDetailAPIView(generics.RetrieveAPIView):
 
 
 class MatchListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Match.objects.all()
+    queryset = Match.objects.all().order_by("id")
     serializer_class = MatchSerializer
 
 
@@ -51,7 +51,7 @@ class LeagueDataDetailAPIView(generics.RetrieveAPIView):
 
 
 class LeagueDataListCreateAPIView(generics.ListCreateAPIView):
-    queryset = PlayerLeagueData.objects.all()
+    queryset = PlayerLeagueData.objects.all().order_by("id")
     serializer_class = LeagueDataSerializer
 
 
@@ -61,7 +61,7 @@ class CompetitionDataDetailAPIView(generics.RetrieveAPIView):
 
 
 class CompetitionDataCreateAPIView(generics.ListCreateAPIView):
-    queryset = PlayerCompetitionData.objects.all()
+    queryset = PlayerCompetitionData.objects.all().order_by("id")
     serializer_class = CompetitionDataSerializer
 
 
