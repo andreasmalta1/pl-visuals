@@ -49,6 +49,7 @@ for team_folder in team_folders:
             "season": season,
             "num_matches_league": num_matches_league,
             "num_matches_comps": num_matches_comps,
+            "league": 47,
         }
 
         get_response = requests.post(endpoint, json=data)
