@@ -1,6 +1,5 @@
-# Add ordering when retrieving api data in list view
 # Add seasonal data
-# When adding seasonal data, add league
+# Style pages
 # Additional info to create player charts (like on bot)
 # Update data for the latest season
 
