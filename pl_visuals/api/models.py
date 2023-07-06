@@ -37,7 +37,7 @@ class PlayerLeagueData(models.Model):
     nation = models.CharField(max_length=50)
     position = models.CharField(max_length=10)
     age = models.CharField(max_length=10)
-    league = models.CharField(max_length=50)
+    league = models.ForeignKey("League", on_delete=models.SET_NULL, null=True)
     club = models.ForeignKey("Club", on_delete=models.CASCADE)
 
     matches_played = models.IntegerField()
@@ -71,7 +71,7 @@ class PlayerCompetitionData(models.Model):
     nation = models.CharField(max_length=50)
     position = models.CharField(max_length=10)
     age = models.CharField(max_length=10)
-    league = models.CharField(max_length=50)
+    league = models.ForeignKey("League", on_delete=models.SET_NULL, null=True)
     club = models.ForeignKey("Club", on_delete=models.CASCADE)
 
     matches_played = models.IntegerField()
