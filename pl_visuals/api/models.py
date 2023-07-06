@@ -13,6 +13,8 @@ class League(models.Model):
     league_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=30)
     code = models.CharField(max_length=5)
+    country = models.CharField(max_length=30)
+    confederation = models.CharField(max_length=30)
 
 
 class Match(models.Model):

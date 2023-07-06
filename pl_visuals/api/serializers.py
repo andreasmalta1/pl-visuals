@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Club, Match, PlayerLeagueData, PlayerCompetitionData
+from .models import Club, League, Match, PlayerLeagueData, PlayerCompetitionData
 
 
 class ClubSerializer(serializers.ModelSerializer):
@@ -17,13 +17,13 @@ class ClubPublicSerializer(serializers.ModelSerializer):
 
 class LeagueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Club
-        fields = ["league_id", "name", "code"]
+        model = League
+        fields = ["league_id", "name", "code", "country", "confederation"]
 
 
 class LeaguePublicSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Club
+        model = League
         fields = ["name"]
 
 
