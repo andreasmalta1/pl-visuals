@@ -40,6 +40,11 @@ class MatchListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = MatchSerializer
 
 
+class MatchUpdateAPIView(generics.UpdateAPIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+
+
 class LeagueDataDetailAPIView(generics.RetrieveAPIView):
     queryset = PlayerLeagueData.objects.all()
     serializer_class = LeagueDataSerializer
@@ -66,6 +71,7 @@ league_detail_view = LeagueDetailAPIView.as_view()
 league_list_create_view = LeagueListCreateAPIView.as_view()
 match_detail_view = MatchDetailAPIView.as_view()
 match_list_create_view = MatchListCreateAPIView.as_view()
+match_update_view = MatchUpdateAPIView.as_view()
 league_data_detail_view = LeagueDataDetailAPIView.as_view()
 league_data_list_create_view = LeagueDataListCreateAPIView.as_view()
 competition_data_detail_view = CompetitionDataDetailAPIView.as_view()

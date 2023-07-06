@@ -34,6 +34,7 @@ class MatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Match
         fields = [
+            "id",
             "club",
             "club_info",
             "league",
