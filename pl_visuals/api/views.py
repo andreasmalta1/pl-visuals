@@ -1,8 +1,9 @@
 from rest_framework import generics
 
-from .models import Club, Match, PlayerLeagueData, PlayerCompetitionData
+from .models import Club, League, Match, PlayerLeagueData, PlayerCompetitionData
 from .serializers import (
     ClubSerializer,
+    LeagueSerializer,
     MatchSerializer,
     LeagueDataSerializer,
     CompetitionDataSerializer,
@@ -17,6 +18,16 @@ class ClubDetailAPIView(generics.RetrieveAPIView):
 class ClubListCreateAPIView(generics.ListCreateAPIView):
     queryset = Club.objects.all()
     serializer_class = ClubSerializer
+
+
+class LeagueDetailAPIView(generics.RetrieveAPIView):
+    queryset = League.objects.all()
+    serializer_class = LeagueSerializer
+
+
+class LeagueListCreateAPIView(generics.ListCreateAPIView):
+    queryset = League.objects.all()
+    serializer_class = LeagueSerializer
 
 
 class MatchDetailAPIView(generics.RetrieveAPIView):
@@ -51,6 +62,8 @@ class CompetitionDataCreateAPIView(generics.ListCreateAPIView):
 
 club_detail_view = ClubDetailAPIView.as_view()
 club_list_create_view = ClubListCreateAPIView.as_view()
+league_detail_view = LeagueDetailAPIView.as_view()
+league_list_create_view = LeagueListCreateAPIView.as_view()
 match_detail_view = MatchDetailAPIView.as_view()
 match_list_create_view = MatchListCreateAPIView.as_view()
 league_data_detail_view = LeagueDataDetailAPIView.as_view()
