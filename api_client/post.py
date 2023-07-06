@@ -43,7 +43,7 @@ for team_folder in team_folders:
                     data["position"] = row[3]
                     data["nation"] = row[2]
                     data["age"] = row[4]
-                    data["league"] = row[38 - offset]
+                    data["league"] = 47
                     data["club"] = int(row[37 - offset])
                     data["matches_played"] = int(row[5])
                     data["starts"] = int(row[6])
