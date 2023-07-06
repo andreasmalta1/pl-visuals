@@ -1,11 +1,4 @@
-# Get a list of all the matches
-# For each match entry update with league info
-
 import requests
-import csv
-import os
-
-from teams import TEAMS
 
 get_endpoint = "http://localhost:8000/api/match/"
 
