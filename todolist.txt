@@ -1,8 +1,7 @@
 # Add seasonal data
-# Add league in match models
-# Paginate the minutes api
-
-# League model - > league name - > short_code -> id
+# Add api client to add league
+# When adding seasonal data, add league
+# Add view to update matches and add league
 # Additional info to create player charts (like on bot)
 # Update data for the latest season
 
