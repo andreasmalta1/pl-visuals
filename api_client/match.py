@@ -30,14 +30,14 @@ for team_folder in team_folders:
         num_matches_league = 0
         num_matches_comps = 0
 
-        with open(league_csv, "r") as file:
+        with open(league_csv, "r", encoding="UTF-8") as file:
             csvreader = list(csv.reader(file))
             matches_record = csvreader[-1][6].split("-")
 
             for value in matches_record:
                 num_matches_league += int(value)
 
-        with open(comps_csv, "r") as file:
+        with open(comps_csv, "r", encoding="UTF-8") as file:
             csvreader = list(csv.reader(file))
             matches_record = csvreader[-1][7].split("-")
 

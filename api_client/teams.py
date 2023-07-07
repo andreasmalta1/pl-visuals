@@ -9,7 +9,7 @@ TEAMS = {
     "Bournemouth": {"fbref_id": "4ba7cbea", "fotmob_id": 8678},
     "Bradford-City": {"fbref_id": "3148d79f", "fotmob_id": 8484},
     "Brentford": {"fbref_id": "cd051869", "fotmob_id": 9937},
-    "Brighton-and-Hove-Albion": {
+    "Brighton-And-Hove-Albion": {
         "fbref_id": "d07537b9",
         "fotmob_id": 10204,
         "short_name": "Brighton",

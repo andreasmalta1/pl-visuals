@@ -2,8 +2,8 @@ import requests
 import csv
 import os
 
-lge_endpoint = "http://localhost:8000/api/league/"
-comps_endpoint = "http://localhost:8000/api/competition/"
+lge_endpoint = "http://localhost:8000/api/league-data/"
+comps_endpoint = "http://localhost:8000/api/competition-data/"
 
 team_folders = os.listdir("csv_data")
 
@@ -33,7 +33,7 @@ for team_folder in team_folders:
                 csvreader = csv.reader(file)
 
                 if len(next(csvreader)) == 25:
-                    offset = 14
+                    offset = 12
 
                 next(csvreader, None)
                 for row in csvreader:
@@ -44,7 +44,7 @@ for team_folder in team_folders:
                     data["nation"] = row[2]
                     data["age"] = row[4]
                     data["league"] = 47
-                    data["club"] = int(row[37 - offset])
+                    data["club"] = int(row[35 - offset])
                     data["matches_played"] = int(row[5])
                     data["starts"] = int(row[6])
                     data["minutes"] = int(row[7])
