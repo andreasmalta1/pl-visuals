@@ -15,7 +15,7 @@ def get_minutes(df):
             "matches_played",
             "starts",
             "90s",
-            "league",
+            "league_id",
         ]
     ]
     df["minutes"] = df["minutes"].astype(float)

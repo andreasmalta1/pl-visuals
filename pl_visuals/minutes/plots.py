@@ -8,12 +8,10 @@ import base64
 import urllib
 
 from minutes.utils import annotate_axis, ax_logo, minutes_battery
-from minutes.constants import LEAGUES
 
 
 def plt_minutes(df, team_name, num_games, team_id, comp):
     comp_description = "All Comps"
-    print(comp)
     if comp != "comps":
         comp_description = "Premier League"
 
