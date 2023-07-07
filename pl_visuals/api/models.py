@@ -16,6 +16,9 @@ class League(models.Model):
     country = models.CharField(max_length=30)
     confederation = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.name
+
 
 class Match(models.Model):
     club = models.ForeignKey("Club", on_delete=models.CASCADE)
