@@ -35,7 +35,6 @@ for team_folder in team_folders:
                 if len(next(csvreader)) == 25:
                     offset = 12
 
-                next(csvreader, None)
                 for row in csvreader:
                     data = {}
                     data["season"] = season
