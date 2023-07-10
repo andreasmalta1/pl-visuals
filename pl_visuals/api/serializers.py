@@ -52,6 +52,7 @@ class LeagueDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayerLeagueData
         fields = [
+            "id",
             "club",
             "club_info",
             "league",
@@ -86,6 +87,7 @@ class CompetitionDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayerCompetitionData
         fields = [
+            "id",
             "club",
             "club_info",
             "league",
