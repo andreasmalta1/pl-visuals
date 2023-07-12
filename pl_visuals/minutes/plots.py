@@ -10,7 +10,7 @@ import urllib
 from minutes.utils import annotate_axis, ax_logo, minutes_battery
 
 
-def plt_minutes(df, team_name, num_games, team_id, comp):
+def plt_minutes(df, team_name, season, num_games, team_id, comp):
     comp_description = "All Comps"
     if comp != "comps":
         comp_description = "Premier League"
@@ -158,7 +158,7 @@ def plt_minutes(df, team_name, num_games, team_id, comp):
     fig.text(
         x=0.15,
         y=0.91,
-        s=f"{team_name.replace('-', ' ')} 22/23 {comp_description} ({num_games} Games)",
+        s=f"{team_name.replace('-', ' ')} {season} {comp_description} ({num_games} Games)",
         ha="left",
         va="bottom",
         weight="bold",

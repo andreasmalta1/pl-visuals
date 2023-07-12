@@ -1,6 +1,6 @@
-# Add seasonal data
-# Style pages
+# Scraper to get latest seasons data and endpoint to update
+# Update all views and Style
 # Additional info to create player charts (like on bot)
 # Update data for the latest season
 
-# Can I make the API avaialable via a key -> user registers, key generated, sent via email, authentication of key in headers.
+# Can I make the API available via a key -> user registers, key generated, sent via email, authentication of key in headers.

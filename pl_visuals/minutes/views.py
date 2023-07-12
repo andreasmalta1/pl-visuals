@@ -19,11 +19,13 @@ def teams(request, id):
         PlayerLeagueData.objects.filter(club=club)
         .values_list("season", flat=True)
         .distinct()
+        .order_by("season")
     )
     competition_seasons = (
         PlayerCompetitionData.objects.filter(club=club)
         .values_list("season", flat=True)
         .distinct()
+        .order_by("season")
     )
 
     league_season_list = [int(season[:4]) for season in league_seasons]
@@ -49,7 +51,7 @@ def league_graph(request, id, season):
 
     df = get_minutes(minutes)
 
-    graph = plt_minutes(df, club.club_name, num_matches, club.club_id, "lge")
+    graph = plt_minutes(df, club.club_name, season, num_matches, club.club_id, "lge")
 
     return render(request, "minutes/graph.html", {"data": graph})
 
@@ -70,6 +72,6 @@ def comp_graph(request, id, season):
 
     df = get_minutes(minutes)
 
-    graph = plt_minutes(df, club.club_name, num_matches, club.club_id, "comps")
+    graph = plt_minutes(df, club.club_name, season, num_matches, club.club_id, "comps")
 
     return render(request, "minutes/graph.html", {"data": graph})
