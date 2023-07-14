@@ -1,4 +1,5 @@
 import os
+import csv
 import time
 import requests
 import pandas as pd
@@ -35,10 +36,10 @@ def drop_rows(df, column, value):
 
 def get_team_data(
     team_name,
-    file_name_lge,
-    file_name_comps,
-    file_name_mth_lge,
-    file_name_mth_comps,
+    csv_lge,
+    csv_comps,
+    csv_mth_lge,
+    csv_mth_comps,
 ):
     time.sleep(60)
 
@@ -88,10 +89,98 @@ def get_team_data(
     df_lge_mth = get_info(url_lge_mth)
     df_comps_mth = get_info(url_comps_mth)
 
-    df_lge.to_csv(file_name_lge)
-    df_comps.to_csv(file_name_comps)
-    df_lge_mth.to_csv(file_name_mth_lge)
-    df_comps_mth.to_csv(file_name_mth_comps)
+    df_lge.to_csv(csv_lge)
+    df_comps.to_csv(csv_comps)
+    df_lge_mth.to_csv(csv_mth_lge)
+    df_comps_mth.to_csv(csv_mth_comps)
+
+
+def post_data(csv_file, team, competition):
+    with open(csv_file, "r", encoding="UTF-8") as file:
+        csvreader = csv.reader(file)
+        next(csvreader, None)
+
+        for row in csvreader:
+            player = row[1].replace(" ", "%20")
+            print(player)
+
+            get_endpoint = f"http://localhost:8000/api/{competition}-data/?team={team.replace(' ', '%20')}&season={season_model}&player={player}"
+            get_response = requests.get(get_endpoint).json()
+            data = get_response["results"]
+            data_id = data[0]["id"]
+
+            data = {}
+            data["season"] = season
+            data["player_name"] = row[1]
+            data["position"] = row[3]
+            data["nation"] = row[2]
+            data["age"] = row[4]
+            data["league"] = 47
+            data["club"] = int(row[35])
+            data["matches_played"] = int(row[5])
+            data["starts"] = int(row[6])
+            data["minutes"] = int(row[7])
+            data["goals"] = int(row[9])
+            data["assists"] = int(row[10])
+            data["penalty_kicks"] = int(row[14])
+            data["penalty_goals"] = int(row[13])
+            data["yellow_cards"] = int(row[15])
+            data["red_cards"] = int(row[16])
+            data["xg"] = float(row[17])
+            data["non_penalty_xg"] = float(row[18])
+            data["xa"] = float(row[19])
+            data["progressive_passes"] = int(row[22])
+            data["progressive_carries"] = int(row[21])
+            data["progressive_receives"] = int(row[23])
+
+            update_endpoint = (
+                f"http://localhost:8000/api/{competition}-data/update/{data_id}/"
+            )
+
+            update = requests.put(update_endpoint, json=data)
+            print(update.json())
+
+
+def post_matches(csv_mth_lge, csv_mth_comps, team):
+    num_matches_league = 0
+    num_matches_comps = 0
+
+    with open(csv_mth_lge, "r", encoding="UTF-8") as file:
+        csvreader = list(csv.reader(file))
+        matches_record = csvreader[-1][6].split("-")
+
+        for value in matches_record:
+            num_matches_league += int(value)
+
+    with open(csv_mth_comps, "r", encoding="UTF-8") as file:
+        csvreader = list(csv.reader(file))
+        matches_record = csvreader[-1][7].split("-")
+
+        for value in matches_record:
+            num_matches_comps += int(value)
+
+    get_endpoint = f"http://localhost:8000/api/match/?team={team.replace(' ', '%20')}&season={season_model}"
+    get_response = requests.get(get_endpoint).json()
+    data = get_response["results"]
+    data_id = data[0]["id"]
+
+    get_endpoint = f"http://localhost:8000/api/club/?team={team.replace(' ', '%20')}"
+    get_response = requests.get(get_endpoint).json()
+    data = get_response["results"]
+    club_id = data[0]["club_id"]
+
+    data = {
+        "club": club_id,
+        "season": season,
+        "num_matches_league": num_matches_league,
+        "num_matches_comps": num_matches_comps,
+        "league": 47,
+    }
+
+    update_endpoint = f"http://localhost:8000/api/match/update/{data_id}/"
+
+    update = requests.put(update_endpoint, json=data)
+    print(update.json())
 
 
 def main():
@@ -113,35 +202,25 @@ def main():
         if not os.path.isdir(file_path_comps):
             os.makedirs(file_path_comps)
 
-        file_name_lge = os.path.join(file_path_lge, f"{season}.csv")
-        file_name_comps = os.path.join(file_path_comps, f"{season}.csv")
-        file_name_mth_lge = os.path.join(file_path_lge, f"{season}_matches.csv")
-        file_name_mth_comps = os.path.join(file_path_comps, f"{season}_matches.csv")
+        csv_lge = os.path.join(file_path_lge, f"{season}.csv")
+        csv_comps = os.path.join(file_path_comps, f"{season}.csv")
+        csv_mth_lge = os.path.join(file_path_lge, f"{season}_matches.csv")
+        csv_mth_comps = os.path.join(file_path_comps, f"{season}_matches.csv")
 
-        # get_team_data(
-        #     team_name,
-        #     file_name_lge,
-        #     file_name_comps,
-        #     file_name_mth_lge,
-        #     file_name_mth_comps,
-        # )
+        get_team_data(
+            team_name,
+            csv_lge,
+            csv_comps,
+            csv_mth_lge,
+            csv_mth_comps,
+        )
 
-        # For each team, go through the player csvs, find the player in the database and update. Same for matches
-        # Add player name paaramter
+        post_data(csv_lge, team, "league")
+        post_data(csv_comps, team, "competition")
 
-        print(team_name)
-        print(team)
-        print(season)
+        post_matches(csv_mth_lge, csv_mth_comps, team)
 
-        get_lge_endpoint = f"http://localhost:8000/api/league-data/?team_name={team.replace(' ', '%20')}&season={season_model}"
-        print(get_lge_endpoint)
-
-        get_response = requests.get(get_lge_endpoint).json()
-        data = get_response["results"]
-        print(data)
         break
-
-        # get_comps_endpoint = "http://localhost:8000/api/competition-data/"
 
 
 main()

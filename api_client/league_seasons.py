@@ -29,7 +29,5 @@ def get_teams_list():
             if team not in teams:
                 teams.append(team)
 
-    print(teams)
-
 
 get_teams()
