@@ -1,4 +1,3 @@
-# Added functionality to update season. Need ability to add new season
 # Update all views and Style
 # Additional info to create player charts (like on bot)
 # Update data for the latest season

@@ -11,9 +11,6 @@ latest_season = 2022
 season = f"{latest_season}-{latest_season+1}"
 season_model = f"{latest_season}/{latest_season+1}"
 
-update_lge_endpoint = "http://localhost:8000/api/league-data/"
-update_comps_endpoint = "http://localhost:8000/api/competition-data/"
-
 
 def get_info(url):
     html = pd.read_html(url, header=0)
@@ -110,7 +107,7 @@ def post_data(csv_file, team, competition):
             data_id = data[0]["id"]
 
             data = {}
-            data["season"] = season
+            data["season"] = season_model
             data["player_name"] = row[1]
             data["position"] = row[3]
             data["nation"] = row[2]
@@ -171,7 +168,7 @@ def post_matches(csv_mth_lge, csv_mth_comps, team):
 
     data = {
         "club": club_id,
-        "season": season,
+        "season": season_model,
         "num_matches_league": num_matches_league,
         "num_matches_comps": num_matches_comps,
         "league": 47,
@@ -219,8 +216,6 @@ def main():
         post_data(csv_comps, team, "competition")
 
         post_matches(csv_mth_lge, csv_mth_comps, team)
-
-        break
 
 
 main()
