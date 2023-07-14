@@ -16,8 +16,15 @@ class ClubDetailAPIView(generics.RetrieveAPIView):
 
 
 class ClubListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Club.objects.all().order_by("club_id")
     serializer_class = ClubSerializer
+
+    def get_queryset(self):
+        queryset = Club.objects.all().order_by("club_id")
+        team = self.request.query_params.get("team")
+        if team:
+            queryset = queryset.filter(club_name=team)
+
+        return queryset
 
 
 class LeagueDetailAPIView(generics.RetrieveAPIView):
@@ -26,7 +33,7 @@ class LeagueDetailAPIView(generics.RetrieveAPIView):
 
 
 class LeagueListCreateAPIView(generics.ListCreateAPIView):
-    queryset = League.objects.all().order_by("-league_id")
+    queryset = League.objects.all().order_by("league_id")
     serializer_class = LeagueSerializer
 
 
@@ -36,8 +43,18 @@ class MatchDetailAPIView(generics.RetrieveAPIView):
 
 
 class MatchListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Match.objects.all().order_by("id")
     serializer_class = MatchSerializer
+
+    def get_queryset(self):
+        queryset = Match.objects.all().order_by("id")
+        team = self.request.query_params.get("team")
+        season = self.request.query_params.get("season")
+        if team:
+            queryset = queryset.filter(club__club_name=team)
+        if season:
+            queryset = queryset.filter(season=season)
+
+        return queryset
 
 
 class MatchUpdateAPIView(generics.UpdateAPIView):
@@ -54,17 +71,16 @@ class LeagueDataListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = LeagueDataSerializer
 
     def get_queryset(self):
-        """
-        Optionally restricts the returned purchases to a given user,
-        by filtering against a `username` query parameter in the URL.
-        """
         queryset = PlayerLeagueData.objects.all().order_by("id")
-        team_name = self.request.query_params.get("team_name")
+        team = self.request.query_params.get("team")
         season = self.request.query_params.get("season")
-        if team_name:
-            queryset = queryset.filter(club__club_name=team_name)
+        player = self.request.query_params.get("player")
+        if team:
+            queryset = queryset.filter(club__club_name=team)
         if season:
             queryset = queryset.filter(season=season)
+        if player:
+            queryset = queryset.filter(player_name=player)
 
         return queryset
 
@@ -79,9 +95,22 @@ class CompetitionDataDetailAPIView(generics.RetrieveAPIView):
     serializer_class = CompetitionDataSerializer
 
 
-class CompetitionDataCreateAPIView(generics.ListCreateAPIView):
-    queryset = PlayerCompetitionData.objects.all().order_by("id")
+class CompetitionDataListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = CompetitionDataSerializer
+
+    def get_queryset(self):
+        queryset = PlayerCompetitionData.objects.all().order_by("id")
+        team = self.request.query_params.get("team")
+        season = self.request.query_params.get("season")
+        player = self.request.query_params.get("player")
+        if team:
+            queryset = queryset.filter(club__club_name=team)
+        if season:
+            queryset = queryset.filter(season=season)
+        if player:
+            queryset = queryset.filter(player_name=player)
+
+        return queryset
 
 
 class CompetitionDataUpdateAPIView(generics.UpdateAPIView):
@@ -100,5 +129,5 @@ league_data_detail_view = LeagueDataDetailAPIView.as_view()
 league_data_list_create_view = LeagueDataListCreateAPIView.as_view()
 league_data_update_view = LeagueDataUpdateAPIView.as_view()
 competition_data_detail_view = CompetitionDataDetailAPIView.as_view()
-competition_data_list_create_view = CompetitionDataCreateAPIView.as_view()
+competition_data_list_create_view = CompetitionDataListCreateAPIView.as_view()
 competition_data_update_view = CompetitionDataUpdateAPIView.as_view()
