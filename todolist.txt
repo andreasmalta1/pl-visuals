@@ -1,3 +1,4 @@
+# Make landing page
 # Update all views and Style
 # Additional info to create player charts (like on bot)
 # Update data for the latest season

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %} PL Visuals | Home {% endblock%}
+
+{% block content %}
+    <h1>List of teams</h1>
+    <div class="container">
+        {% for team in teams %}
+            <a href="{% url 'team' team.club_id %}">{{ team }}</a>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock %}
